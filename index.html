@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Profit Calculator | Calculate Profit & Loss Instantly</title>
+    <meta name="description" content="Calculate profit and loss from cost and selling price instantly. Free online profit calculator.">
+    <meta name="keywords" content="profit calculator, loss calculator, margin calculator, profit margin">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Profit Calculator | Calculate Profit & Loss Instantly">
+    <meta property="og:description" content="Calculate profit and loss from cost and selling price instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://profit-calculator.vercel.app/">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Profit Calculator">
+    <meta name="twitter:description" content="Calculate profit and loss from cost and selling price instantly.">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://profit-calculator.vercel.app/">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --danger: #ef4444;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .calculator-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .input-wrapper input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.125rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .currency-badge {
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .results-container {
+            background: var(--bg-primary);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-value.profit {
+            color: var(--success);
+        }
+
+        .result-value.loss {
+            color: var(--danger);
+        }
+
+        .result-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .detail-item {
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .calculate-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 1rem;
+        }
+
+        .calculate-btn:hover {
+            background: #2563eb;
+        }
+
+        .clear-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 1rem;
+        }
+
+        .clear-btn:hover {
+            background: var(--border);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .result-value {
+                font-size: 2rem;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 Profit Calculator</h1>
+            <p class="subtitle">Calculate profit & loss instantly</p>
+        </header>
+
+        <main>
+            <div class="calculator-container">
+                <div class="input-group">
+                    <label class="input-label" for="cost-price">Cost Price</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="cost-price" placeholder="Enter cost price" step="0.01" min="0">
+                        <span class="currency-badge">$</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="selling-price">Selling Price</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="selling-price" placeholder="Enter selling price" step="0.01" min="0">
+                        <span class="currency-badge">$</span>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" id="calculate-btn">Calculate Profit</button>
+            </div>
+
+            <div class="results-container" id="results-container" style="display: none;">
+                <div class="result-value" id="profit-value">--</div>
+                <div class="result-label" id="profit-label">--</div>
+
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Revenue</div>
+                        <div class="detail-value" id="revenue">--</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Margin</div>
+                        <div class="detail-value" id="margin">--</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Markup</div>
+                        <div class="detail-value" id="markup">--</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Status</div>
+                        <div class="detail-value" id="status">--</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="clear-btn" id="clear-btn">Clear</button>
+        </main>
+    </div>
+
+    <footer>
+        <p>Instant calculation • Profit/Loss • No registration required</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

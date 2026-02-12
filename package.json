@@ -1,0 +1,18 @@
+{
+  "name": "profit-calculator",
+  "version": "1.0.0",
+  "description": "One-Page Website to calculate profit and loss",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'No build step needed - static HTML/CSS/JS'",
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "profit-calculator",
+    "loss-calculator",
+    "margin-calculator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {}
+}
